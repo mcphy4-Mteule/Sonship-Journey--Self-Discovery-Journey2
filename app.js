@@ -272,85 +272,205 @@ reverse: false
  reverse: true
 }
 
-];function calculateResults() {
+function calculateResults() {
 
-  let segments = {};
+    const segments = {};
 
-  questions.forEach((q, index) => {
+    questions.forEach((question, index) => {
 
-    let score = answers[index];
+        let score = answers[index];
 
-    if (q.reverse) {
-      score = 6 - score;
-    }
+        if(question.reverse){
+            score = 6 - score;
+        }
 
-    if (!segments[q.segment]) {
-      segments[q.segment] = [];
-    }
+        if(!segments[question.segment]){
+            segments[question.segment] = [];
+        }
 
-    segments[q.segment].push(score);
+        segments[question.segment].push(score);
 
-  });
+    });
 
-  let results = {};
+    const results = {};
 
-  Object.keys(segments).forEach(segment => {
+    Object.keys(segments).forEach(segment => {
 
-    let total = segments[segment]
-      .reduce((a,b)=>a+b,0);
+        const totalScore =
+        segments[segment].reduce((a,b)=>a+b,0);
 
-    let percentage =
-      Math.round(
-      ((25-total)/20) * 100
-      );
+        const sonshipPercent =
+        Math.round(
+            ((25 - totalScore) / 20) * 100
+        );
 
-    results[segment] = percentage;
+        results[segment] = sonshipPercent;
 
-  });
+    });
 
-  return results;
-
-}function overallSonshipIndex(results){
-
-  let scores =
-  Object.values(results);
-
-  let total =
-  scores.reduce((a,b)=>a+b,0);
-
-  return Math.round(
-  total / scores.length
-  );
-
-function sonshipZone(index){
-
- if(index >= 85)
-  return "Rooted Sonship";
-
- if(index >= 70)
-  return "Flourishing Sonship";
-
- if(index >= 55)
-  return "Emerging Awareness";
-
- if(index >= 40)
-  return "Identity Tension";
-
- return "Identity Renewal Needed";
-
-}function strongestArea(results){
-
- return Object.keys(results)
- .reduce((a,b)=>
- results[a] > results[b]
- ? a : b);
-
-}function growthArea(results){
-
- return Object.keys(results)
- .reduce((a,b)=>
- results[a] < results[b]
- ? a : b);
+    return results;
 
 }
+
+function overallSonshipIndex(results){
+
+    const values =
+    Object.values(results);
+
+    const total =
+    values.reduce((a,b)=>a+b,0);
+
+    return Math.round(
+        total / values.length
+    );
+
+}
+
+function sonshipZone(score){
+
+    if(score >= 85)
+        return "🟢 Rooted Sonship";
+
+    if(score >= 70)
+        return "🟢 Flourishing Sonship";
+
+    if(score >= 55)
+        return "🟡 Emerging Awareness";
+
+    if(score >= 40)
+        return "🟠 Identity Tension";
+
+    return "🔴 Identity Renewal Needed";
+
+}
+
+function strongestArea(results){
+
+    return Object.keys(results).reduce((a,b)=>
+        results[a] > results[b]
+        ? a
+        : b
+    );
+function growthArea(results){
+
+    return Object.keys(results).reduce((a,b)=>
+        results[a] < results[b]
+        ? a
+        : b
+    );
+}function buildRadarData(results){
+ 
+return {
+ 
+labels: Object.keys(results),
+ 
+datasets: [{
+label: "Sonship Compass™",
+data: Object.values(results),
+ 
+fill: true,
+ 
+backgroundColor:
+"rgba(212,175,55,0.2)",
+ 
+borderColor:
+"#D4AF37",
+ 
+pointBackgroundColor:
+"#16375B",
+ 
+pointBorderColor:
+"#16375B"
+ 
+}]
+};
+function renderResults(){
+
+    const results =
+    calculateResults();
+
+    const overall =
+    overallSonshipIndex(results);
+
+    const strongest =
+    strongestArea(results);
+
+    const growth =
+    growthArea(results);
+
+    document.getElementById("overallScore")
+        .innerText = overall + "%";
+
+    document.getElementById("overallZone")
+        .innerText = sonshipZone(overall);
+
+    document.getElementById("strongestArea")
+        .innerText = strongest;
+
+    document.getElementById("growthArea")
+        .innerText = growth;
+
+    let html = "";
+
+    Object.keys(results).forEach(segment=>{
+
+        html += `
+        <div class="result-card">
+
+            <h4>${segment}</h4>
+
+            <p>${results[segment]}%</p>
+
+        </div>
+        `;
+
+    });
+
+    document.getElementById(
+      "segmentResults"
+    ).innerHTML = html;
+
+    createRadarChart(results);
+
+}let radarChart;
+
+function createRadarChart(results){
+
+    const ctx =
+    document.getElementById(
+    "radarChart"
+    );
+
+    if(radarChart){
+        radarChart.destroy();
+    }
+
+    radarChart =
+    new Chart(ctx, {
+
+        type: "radar",
+
+        data:
+        buildRadarData(results),
+
+        options: {
+
+            responsive: true,
+
+            scales: {
+
+                r: {
+
+                    min: 0,
+                    max: 100,
+
+                    ticks: {
+ 
+                        stepSize: 20
+}
+}assessment.classList.add("hidden");
+
+resultsScreen.classList.remove("hidden");
+
+renderResults();
 }
