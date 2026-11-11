@@ -263,3 +263,94 @@ const questions = [
 {
  segment: "Future",
  text: "Anxiety often shapes my anticipation of what lies ahead.",
+reverse: false
+},
+
+{
+ segment: "Future",
+ text: "I believe God desires good things for His children.",
+ reverse: true
+}
+
+];function calculateResults() {
+
+  let segments = {};
+
+  questions.forEach((q, index) => {
+
+    let score = answers[index];
+
+    if (q.reverse) {
+      score = 6 - score;
+    }
+
+    if (!segments[q.segment]) {
+      segments[q.segment] = [];
+    }
+
+    segments[q.segment].push(score);
+
+  });
+
+  let results = {};
+
+  Object.keys(segments).forEach(segment => {
+
+    let total = segments[segment]
+      .reduce((a,b)=>a+b,0);
+
+    let percentage =
+      Math.round(
+      ((25-total)/20) * 100
+      );
+
+    results[segment] = percentage;
+
+  });
+
+  return results;
+
+}function overallSonshipIndex(results){
+
+  let scores =
+  Object.values(results);
+
+  let total =
+  scores.reduce((a,b)=>a+b,0);
+
+  return Math.round(
+  total / scores.length
+  );
+
+function sonshipZone(index){
+
+ if(index >= 85)
+  return "Rooted Sonship";
+
+ if(index >= 70)
+  return "Flourishing Sonship";
+
+ if(index >= 55)
+  return "Emerging Awareness";
+
+ if(index >= 40)
+  return "Identity Tension";
+
+ return "Identity Renewal Needed";
+
+}function strongestArea(results){
+
+ return Object.keys(results)
+ .reduce((a,b)=>
+ results[a] > results[b]
+ ? a : b);
+
+}function growthArea(results){
+
+ return Object.keys(results)
+ .reduce((a,b)=>
+ results[a] < results[b]
+ ? a : b);
+
+}
+}
