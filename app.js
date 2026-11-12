@@ -1,3 +1,7 @@
+/* =====================================
+   QUESTIONS
+===================================== */
+
 const questions = [
 
 /* ======================================
@@ -270,8 +274,94 @@ reverse: false
  segment: "Future",
  text: "I believe God desires good things for His children.",
  reverse: true
+/* =====================================
+   STORAGE
+===================================== */   
+const STORAGE_KEY =
+"sonship_self_discovery_journey";
+
+function saveProgress() {
+   ...
 }
 
+function loadProgress() {
+   ...
+}
+
+function clearProgress() {
+   ...
+ saveProgress()
+function saveProgress(){
+
+    const data = {
+
+        answers,
+        current
+
+    };
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+loadProgress()
+function loadProgress(){
+
+    const saved =
+    localStorage.getItem(
+      STORAGE_KEY
+    );
+
+    if(!saved) return;
+
+    const data =
+    JSON.parse(saved);
+
+    answers =
+    data.answers || [];
+
+    current =
+    data.current || 0;
+
+}
+clearProgress() 
+} 
+function clearProgress(){
+
+    localStorage.removeItem(
+      STORAGE_KEY
+    );
+
+}
+function clearProgress(){
+
+    localStorage.removeItem(
+      STORAGE_KEY
+    );
+
+}
+loadProgress();
+
+answers[current] =
+Number(selected.value);
+
+saveProgress();
+
+Save When Moving Back
+if(selected){
+
+   answers[current] =
+   Number(selected.value);
+
+   saveProgress();
+Clear progres After Results   
+clearProgress();
+}
+/* =====================================
+   RESULTS
+===================================== */
 function calculateResults() {
 
     const segments = {};
@@ -323,27 +413,6 @@ function overallSonshipIndex(results){
     return Math.round(
         total / values.length
     );
-
-}
-
-function sonshipZone(score){
-
-    if(score >= 85)
-        return "🟢 Rooted Sonship";
-
-    if(score >= 70)
-        return "🟢 Flourishing Sonship";
-
-    if(score >= 55)
-        return "🟡 Emerging Awareness";
-
-    if(score >= 40)
-        return "🟠 Identity Tension";
-
-    return "🔴 Identity Renewal Needed";
-
-}
-
 function strongestArea(results){
 
     return Object.keys(results).reduce((a,b)=>
@@ -367,6 +436,34 @@ labels: Object.keys(results),
 datasets: [{
 label: "Sonship Compass™",
 data: Object.values(results),
+}
+document.getElementById(
+"recommendedScriptures"
+).innerHTML =
+renderScriptures(growth);
+           
+/* =====================================
+   SCORING
+===================================== */
+function sonshipZone(score){
+
+    if(score >= 85)
+        return "🟢 Rooted Sonship";
+
+    if(score >= 70)
+        return "🟢 Flourishing Sonship";
+
+    if(score >= 55)
+        return "🟡 Emerging Awareness";
+
+    if(score >= 40)
+        return "🟠 Identity Tension";
+
+    return "🔴 Identity Renewal Needed";
+
+}
+
+
  
 fill: true,
  
@@ -474,3 +571,181 @@ resultsScreen.classList.remove("hidden");
 
 renderResults();
 }
+SCRIPTURES
+EVENTS
+nextBtn.addEventListener(...)
+prevBtn.addEventListener(...)
+startBtn.addEventListener(...)    
+saveProgress();
+INITIALIZATION   
+loadProgress();
+
+if(answers.length > 0){
+
+   welcome.classList.add("hidden");
+
+   assessment.classList.remove("hidden");
+
+   renderQuestion();
+
+}
+/* =====================================
+   SCRIPTURE RECOMMENDATIONS
+===================================== */
+  const scriptures = {
+
+    "Picture of God": {
+
+        verses: [
+            "Romans 8:15",
+            "John 17:23",
+            "Zephaniah 3:17"
+        ],
+
+        reflection:
+        "How might your relationship with God change if you fully believed that His affection toward you remains constant?",
+
+        prayer:
+        "Father, help me to see You as You truly are and not through the lens of my fears, failures, or past experiences."
+
+    },
+
+    "Theology": {
+
+        verses: [
+            "Ephesians 2:8-9",
+            "Romans 5:1",
+            "Titus 3:5"
+        ],
+
+        reflection:
+        "Where do you find yourself relying on performance rather than grace?",
+
+        prayer:
+        "Father, teach me to live from Your grace rather than striving to earn what You have already given through Christ."
+
+    },
+
+    "Motive for Service": {
+
+        verses: [
+            "Galatians 5:13",
+            "Colossians 3:23",
+            "Mark 10:45"
+        ],
+
+        reflection:
+        "What would service look like if it flowed entirely from gratitude rather than significance-seeking?",
+
+        prayer:
+        "Father, let my service arise from love and gratitude rather than a desire for approval or recognition."
+
+    },
+
+    "Christian Disciplines": {
+
+        verses: [
+            "Psalm 27:4",
+            "John 15:5",
+            "Luke 10:39-42"
+        ],
+
+        reflection:
+        "Do your spiritual disciplines feel more like duty or delight?",
+
+        prayer:
+        "Father, draw me into deeper enjoyment of Your presence and help me relate to You more as a child than as a worker."
+
+    },
+
+    "God's Presence": {
+
+        verses: [
+            "Hebrews 4:16",
+            "Psalm 139:7-10",
+            "Matthew 28:20"
+        ],
+
+        reflection:
+        "How would your prayer life change if you truly believed God is always near?",
+
+        prayer:
+        "Father, help me approach Your throne with confidence, trusting that Your presence remains with me in every season."
+
+    },
+
+    "Position": {
+
+        verses: [
+            "Romans 8:16",
+            "Galatians 4:6-7",
+            "Ephesians 1:5"
+        ],
+
+        reflection:
+        "What changes when you see yourself as a beloved child rather than someone trying to earn acceptance?",
+
+        prayer:
+        "Father, anchor my identity in Your love and remind me that I belong in Your family."
+
+    },
+
+    "Vision": {
+
+        verses: [
+            "Philippians 3:10",
+            "Matthew 6:33",
+            "John 17:3"
+        ],
+
+        reflection:
+        "Is intimacy with God or visible achievement shaping your understanding of success?",
+
+        prayer:
+        "Father, let knowing You become my greatest pursuit and deepest desire."
+
+    },
+
+    "Future": {
+
+        verses: [
+            "Jeremiah 29:11",
+            "Romans 8:28",
+            "Psalm 23:6"
+        ],
+
+        reflection:
+        "What fears about the future become smaller when viewed through the lens of God's goodness?",
+
+        prayer:
+        "Father, teach me to trust Your heart and Your plans, even when I cannot clearly see the path ahead."
+
+    }
+function renderScriptures(area){
+
+    const item = scriptures[area];
+
+    return `
+        <div class="scripture-block">
+
+            <h4>Recommended Scriptures</h4>
+
+            <ul>
+                <li>${item.verses[0]}</li>
+                <li>${item.verses[1]}</li>
+                <li>${item.verses[2]}</li>
+            </ul>
+
+            <h4>Reflection Question</h4>
+
+            <p>${item.reflection}</p>
+
+            <h4>Prayer</h4>
+
+            <p>${item.prayer}</p>
+
+        </div>
+    `;
+
+}
+}; 
