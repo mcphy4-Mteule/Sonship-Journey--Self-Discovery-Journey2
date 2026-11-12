@@ -298,5 +298,29 @@ height:140px;
 font-size:34px;
 
 }
+.scripture-block {
 
+    text-align:left;
+
+}
+
+.scripture-block ul {
+
+    padding-left:20px;
+
+}
+
+.scripture-block li {
+
+    margin-bottom:6px;
+
+}
+
+.scripture-block h4 {
+
+    color: var(--navy);
+
+    margin-top:18px;
+
+}
 }
