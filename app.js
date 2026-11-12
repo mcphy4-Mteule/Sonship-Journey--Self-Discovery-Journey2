@@ -274,6 +274,13 @@ reverse: false
  segment: "Future",
  text: "I believe God desires good things for His children.",
  reverse: true
+}
+
+];
+
+/* =====================================
+   STORAGE
+===================================== */
 /* =====================================
    STORAGE
 ===================================== */   
